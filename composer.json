@@ -1,0 +1,26 @@
+{
+    "name": "razecode/trackorder",
+    "description": "Razecode Order Tracking for Magento 2",
+    "require": {
+        "php": "^7.4.0"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Razecode Technologies",
+            "email": "razecodetechnologies@gmail.com",
+            "homepage": "https://www.razecode.com",
+            "role": "Ecommerce Solution Provider"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Razecode\\TrackOrder\\": ""
+        }
+    }
+}

@@ -1,0 +1,45 @@
+<div class="container trackorder">
+    <div class="row">
+        <div class="col-md-10">
+            <p><?php echo __('Enter your Order ID or find your order using your email address or mobile number.') ?></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <form action="<?= $block->getUrl('trackorder/track'); ?>" method="post">
+                <div class="form-group">
+                    <label for="orderid"><?php echo __('Order ID') ?></label>
+                    <input type="text" name="orderid" id="orderid" class="form-control" placeholder="Order Id">
+                </div>
+                <p class="text-center"><?php echo __('OR') ?></p>
+                <div class="form-group">
+                    <label for="contacttype"><?php echo __('Find order by') ?></label>
+                    <select name="findby" class="form-select track-info">
+                        <option value="customer_email"><?php echo __('Email') ?></option>
+                        <option value="telephone"><?php echo __('Mobile') ?></option>
+                    </select>
+                </div> 
+                <div class="form-group">
+                    <label for="contact" id="lblContact"><?php echo __('Email address') ?></label>
+                    <input type="text" name="contact" id="contact" class="form-control" placeholder="Email address">
+                </div> 
+                <div class="form-group">
+                    <button type="submit" class="action submit primary"><?php echo __('Track Order') ?></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    require(['jquery'], function($) {
+        $('.track-info').change(function(){
+            if($(this).val()=='telephone'){
+                $('#lblContact').html('Mobile number');
+                $('#contact').attr('placeholder','Mobile number');
+            } else {
+                $('#lblContact').html('Email address');
+                $('#contact').attr('placeholder','Email address');
+            }
+        });
+    });
+</script>

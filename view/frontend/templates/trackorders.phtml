@@ -1,0 +1,33 @@
+<?php $_order = $block->getOrderByData(); ?>
+<div class="container"> 
+    <div class="row">
+        <div class="col-md-10">
+            <?php if($_order) { ?>
+                <h2>Track your order</h2>
+            <?php } else { ?>
+                <h2 class="text-center">Order Not Found!</h2>
+            <?php } ?>
+        </div>    
+    </div>
+    <?php if($_order) : ?>
+        <div class="row">
+            <div class="col-md-8" id="box">
+                <h3>Order List</h3>
+                <table class="table">
+                    <tr>
+                        <th>OrderId</th>
+                        <th>Order Date</th>
+                        <th>Delivery Status</th>          
+                    </tr>
+                    <?php foreach ($_order as $_item) : ?>    
+                        <tr>
+                            <td><?php echo $_item['increment_id'];?></td>
+                            <td><?php echo $_item['created_at'];?></td>
+                            <td><a href="<?= $block->getBaseUrl() ?>trackorder/track?orderid=<?php echo $_item['increment_id'];?>">Click here</a></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>

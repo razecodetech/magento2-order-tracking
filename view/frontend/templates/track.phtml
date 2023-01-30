@@ -1,0 +1,105 @@
+<?php
+$order = $block->getOrderData();
+if($order){
+    $status = $order->getStatus();
+    $incrementid = $order->getIncrementId();
+    $progress1 = '26.5%';
+    $progress2 = $progress3 = '0%';
+    if ($status == "complete"){
+        $progress1 = $progress2 = $progress3 = "100%";
+    } 
+    if($status == "processing"){
+        $progress1 = "100%";
+    }
+}
+?>
+<div class="container trackorder"> 
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <?php if($order){ ?>
+                <h2>Track your order</h2>
+            <?php } else { ?>
+                <h2 class="text-center">Sorry, Order not found!</h2>
+            <?php } ?>
+        </div>    
+    </div>
+    <?php if ($order) : ?>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1" id="box">
+                <h5>Order: <?php echo $incrementid; ?></h5>
+                <hr>
+                <?php foreach ($order->getAllVisibleItems() as $_item) : ?>
+                    <?php
+                        $productid = $_item->getProductId();
+                        
+                        $option_array = [];
+                        $options = $_item->getProductOptions();
+                        if($options)
+                        {
+                            foreach($options as $attribute){
+                                if(gettype($attribute) == "array")
+                                {
+                                    if(array_key_exists(0, $attribute))
+                                    {
+                                        foreach ($attribute as $attr_data)
+                                        {
+                                            $option_array[$attr_data['label']] = $attr_data['value'];
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ?>    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img loading="lazy" src="<?php echo $block->getProductImage($productid); ?>" alt="<?= $block->escapeHtml($_item->getName()) ?>" />
+                        </div>
+                        <div class="col-md-8">
+                            <div class="info">
+                                <p class="details"><?= $block->escapeHtml($_item->getName()); ?></p>
+                                <?php if (count($option_array) > 0 ) {
+                                    foreach ($option_array as $key => $value) { ?>
+                                        <p class="details"><?php echo $key;?>: <?php echo $value;?></p>
+                                    <?php } ?>
+                                <?php } ?>
+                                <p class="details">Price: <?php echo $_item->getPrice();?></p>
+                                <p class="details">Quantity: <?php echo floor($_item->getQtyOrdered());?></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-primary">
+                        <div class="col-md-1 col-xs-1 order-status-image">
+                            <img src="<?php echo $block->getViewFileUrl('Razecode_TrackOrder::images/order-placed-blue.png') ?>" title="Order placed">
+                            <div class="order-status-text">Order placed</div>
+                        </div>
+                        <div class="progress col-md-4 col-xs-4">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $progress1; ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-xs-1 order-status-image">
+                            <?php if ($status == "processing" || $status == "complete"){ ?>
+                                <img src="<?php echo $block->getViewFileUrl('Razecode_TrackOrder::images/shipped-blue.png') ?>" title="Order shipped">
+                                <div class="order-status-text">Order shipped</div>
+                            <?php } else { ?>
+                                <img src="<?php echo $block->getViewFileUrl('Razecode_TrackOrder::images/shipped-grey.png') ?>" title="Order shipped">
+                            <?php } ?>
+                        </div>
+                        <div class="progress col-md-4 col-xs-4">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $progress2; ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-1 col-xs-1 order-status-image">
+                            <?php if($status == "complete"){ ?>
+                                <img src="<?php echo $block->getViewFileUrl('Razecode_TrackOrder::images/delivered-blue.png') ?>" title="Order delivered">
+                                <div class="order-status-text">Order delivered</div>
+                            <?php } else { ?>
+                                <img src="<?php echo $block->getViewFileUrl('Razecode_TrackOrder::images/delivered-grey.png') ?>" title="Order delivered">
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <hr>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>  
