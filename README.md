@@ -1,4 +1,4 @@
-# Razecode TrackOrder for Magento 2
+# Razecode Order Tracking for Magento 2
 
 Magento 2 Order Tracking extension by Razecode allows customers or guest users to check the status of their orders using order ID, Email address or Mobile number.
 
