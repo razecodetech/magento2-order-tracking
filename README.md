@@ -11,6 +11,8 @@ Magento 2 Order Tracking extension by Razecode allows customers or guest users t
 
 We recommend you to install Razecode_TrackOrder module via composer. It is easy to install, update and maintaince.
 
+Please use composer 2 to avoid any error while installing.
+
 Run the following command in Magento 2 root folder.
 
 #### 1.1 Install
@@ -47,3 +49,9 @@ If you don't want to install via composer, you can use this way.
 php bin/magento setup:upgrade
 php bin/magento setup:static-content:deploy
 ```
+
+## Screenshot 1
+[![Track-your-order.png](https://i.postimg.cc/G9wMFGcw/Track-your-order.png)](https://postimg.cc/tnkty1Z2)
+
+## Screenshot 2
+[![Track-your-order-2.png](https://i.postimg.cc/7LVpqsqC/Track-your-order-2.png)](https://postimg.cc/wt1WVkyH)
